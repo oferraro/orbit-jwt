@@ -49,6 +49,7 @@ class UserController extends Controller
      * */
     public function authenticate(Request $request)
     {
+        // TODO: add refresh token to return data
         $validator = Validator::make($request->all(), [
             'email' => 'required|string',
             'password' => 'required|string'
@@ -81,26 +82,23 @@ class UserController extends Controller
     public function getAuthenticatedUser()
     {
         try {
-
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
+            if (!$user = JWTAuth::parseToken()->authenticate()) {
                 return response()->json(['user_not_found'], 404);
             }
-
         } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-
             return response()->json(['token_expired'], $e->getStatusCode());
-
         } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-
             return response()->json(['token_invalid'], $e->getStatusCode());
-
         } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-
             return response()->json(['token_absent'], $e->getStatusCode());
-
         }
 
-        return response()->json(compact('user'));
+        $responseUser = [
+            "email" => $user->email,
+            "name" => $user->name,
+            "avatar_url" => $user->avatar_url
+        ];
+        return response()->json($responseUser);
     }
 
     public function refreshJWT(Request $request) {

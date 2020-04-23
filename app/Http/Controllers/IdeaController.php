@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Idea;
 use Carbon\Carbon;
+use Facade\Ignition\Support\Packagist\Package;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -33,9 +34,12 @@ class IdeaController extends Controller
         return response()->json($idea, 201);
     }
 
-    public function delete(Request $request) { // route: /ideas/tg2b9xuyy
-
-        // Return code 204
+    public function delete($id) { // route: /ideas/tg2b9xuyy
+        $idea = Idea::find($id);
+        if ($idea) {
+            $idea->delete();
+            return response()->json([], 204);
+        }
     }
 
     public function getIdeas(Request $request) { // Route: GET /ideas?page=1 (ideas paginated) Get a page of ideas (1 page = 10 ideas)
@@ -73,14 +77,13 @@ class IdeaController extends Controller
             return response()->json($validator->errors()->toJson(), 400);
         }
         $idea = Idea::find($id);
-        $idea->content = $request->get('content');
-        $idea->impact = $request->get('impact');
-        $idea->ease = $request->get('ease');
-        $idea->confidence = $request->get('confidence');
-        $idea->update();
-        dd($idea);
-
         if ($idea) {
+            $idea->content = $request->get('content');
+            $idea->impact = $request->get('impact');
+            $idea->ease = $request->get('ease');
+            $idea->confidence = $request->get('confidence');
+            $idea->update();
+            
             $ideaResponse = $this->formatIdea($idea->toArray());
             return response()->json($ideaResponse);
         }
