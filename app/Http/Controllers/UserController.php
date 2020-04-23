@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use JWTAuth;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 
@@ -48,6 +49,14 @@ class UserController extends Controller
      * */
     public function authenticate(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string',
+            'password' => 'required|string'
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+
         $credentials = $request->only('email', 'password');
 
         try {
@@ -59,6 +68,14 @@ class UserController extends Controller
         }
         $refresh_token = '';
         return response()->json(compact('jwt', 'refresh_token'), 201);
+    }
+
+    public function logout(Request $request) {
+        $token = $request->get("refresh_token");
+        $request->request->set('token', $token);
+        JWTAuth::parseToken();
+        JWTAuth::invalidate($token);
+        return response()->json([], 204);
     }
 
     public function getAuthenticatedUser()
@@ -87,11 +104,18 @@ class UserController extends Controller
     }
 
     public function refreshJWT(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'refresh_token' => 'required|string'
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+
         $token = $request->get("refresh_token");
         $request->request->set('token', $token);
         JWTAuth::parseToken();
         $jwt = JWTAuth::refresh($token);
-        return response()->json(compact('jwt'), );
+        return response()->json(compact('jwt'));
     }
 
 }

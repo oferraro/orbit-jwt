@@ -19,10 +19,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('users', 'UserController@signUp')->name('users.signUp');
-
+// User login
 Route::post('access-tokens', 'UserController@authenticate');
-
+// Refresh JWT
 Route::post('access-tokens/refresh', 'UserController@refreshJWT')->name('user.token.refresh');
+
+// User logout
+Route::delete('access-tokens', 'UserController@logout')->name('user.logout');
+
+
 Route::get('open', 'DataController@open');
 
 Route::group(['middleware' => ['jwt.verify']], function() {
