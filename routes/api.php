@@ -27,9 +27,6 @@ Route::post('access-tokens/refresh', 'UserController@refreshJWT')->name('user.to
 // User logout
 Route::delete('access-tokens', 'UserController@logout')->name('user.logout');
 
-
-Route::get('open', 'DataController@open');
-
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('user', 'UserController@getAuthenticatedUser');
     // Current User

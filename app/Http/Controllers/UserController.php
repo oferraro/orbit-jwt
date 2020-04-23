@@ -93,10 +93,16 @@ class UserController extends Controller
             return response()->json(['token_absent'], $e->getStatusCode());
         }
 
+        $default = "https://www.somewhere.com/homestar.jpg";
+        $size = 40;
+        $avatar_url = "https://www.gravatar.com/avatar/"
+            . md5( strtolower( trim( $user->email ) ) )
+            . "?d=" . urlencode( $default ) . "&s=" . $size;
+
         $responseUser = [
             "email" => $user->email,
             "name" => $user->name,
-            "avatar_url" => $user->avatar_url
+            "avatar_url" => $avatar_url
         ];
         return response()->json($responseUser);
     }
