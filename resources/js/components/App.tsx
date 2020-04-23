@@ -44,14 +44,20 @@ class App extends Component<any, any> {
                 ? <MyIdeasComponent
                     setJWTItem={(jwtValue) => {
                         this.setState({jwt: jwtValue});
+                        localStorage.setItem('jwt', jwtValue);
                     }}
                     getIdeas={() => {
                         this.getIdeas();
+                    }}
+                    ideas={this.state.ideas}
+                    deleteIdea={(ideaID) => {
+                        this.deleteIdea(ideaID);
                     }}
                     />
                 : <LoginComponent
                     setJWTItem={(jwtValue) => {
                         this.setState({jwt: jwtValue});
+                        localStorage.setItem('jwt', jwtValue);
                     }}
                 /> }
     </div>)
@@ -61,14 +67,27 @@ class App extends Component<any, any> {
         axios.get(`api/ideas`, {
             headers: {'x-api-key': this.state.jwt
             }}).then(res => {
-                console.log(res);
                 if (res.data.status === "Token is Expired") {
                     localStorage.removeItem('jwt');
                     location.reload();
                 }
-            this.setState({ideas: res.data.ideas});
+                if (res.data.status !== "Token is Invalid") {
+                    this.setState({ideas: res.data});
+                }
         });
     }
+
+    deleteIdea(ideaID) {
+        axios.delete(`api/ideas/${ideaID}`, {
+            headers: {
+                'x-api-key': this.state.jwt
+            }
+        }).then(res => {
+            this.getIdeas();
+            console.log(res);
+        });
+    }
+
 }
 
 ReactDOM.render(<App />, document.getElementById('app'))

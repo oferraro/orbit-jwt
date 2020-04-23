@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="14258c08-ab2d-4972-8063-5a2144860499" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/components/App.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Global.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/LoginComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/MyIdeasComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/MyIdeasStyles.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/MyIdeasComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/MyIdeasComponent.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +161,7 @@
       <option name="presentableId" value="Default" />
       <updated>1587652719183</updated>
       <workItem from="1587652720771" duration="20864000" />
-      <workItem from="1587678197516" duration="4367000" />
+      <workItem from="1587678197516" duration="5779000" />
     </task>
     <servers />
   </component>
@@ -179,10 +173,10 @@
       <screen x="0" y="23" width="1344" height="817" />
     </state>
     <state x="410" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.1344.817@0.23.1344.817" timestamp="1587664630735" />
-    <state x="330" y="188" width="683" height="486" key="find.popup" timestamp="1587669376198">
+    <state x="330" y="188" width="683" height="486" key="find.popup" timestamp="1587683731548">
       <screen x="0" y="23" width="1344" height="817" />
     </state>
-    <state x="330" y="188" width="683" height="486" key="find.popup/0.23.1344.817@0.23.1344.817" timestamp="1587669376198" />
+    <state x="330" y="188" width="683" height="486" key="find.popup/0.23.1344.817@0.23.1344.817" timestamp="1587683731548" />
     <state x="337" y="196" key="run.anything.popup" timestamp="1587677152003">
       <screen x="0" y="23" width="1344" height="817" />
     </state>

@@ -9,9 +9,9 @@ export class MyIdeasComponent extends Component<any, any> {
     constructor(props) {
         super(props);
         this.state = initialState;
+        this.props.getIdeas();
     }
     render() {
-        let showForm = false;
         return (
             <div className="my-ideas-container">
                 <div className="title">My ideas</div>
@@ -29,7 +29,8 @@ export class MyIdeasComponent extends Component<any, any> {
 
                         <div className="select-block">
                             <div>Impact</div>
-                            <select onChange={(event) => {
+                            <select
+                                onChange={(event) => {
                                 const impact: any = event.target.value;
                                 const average = (parseInt(impact) + parseInt(this.state.ease) + parseInt(this.state.confidence))/3;
                                 this.setState({impact, average: average.toFixed(2)});
@@ -85,8 +86,8 @@ export class MyIdeasComponent extends Component<any, any> {
                                  },{
                                      headers: {'x-api-key': jwt
                                  }}).then(res => {
-                                     if (res.status === 200 && res.data.status !== 'Token is Invalid') {
-                                         this.setState(initialState);
+                                     if (res.status === 201 && res.data.status !== 'Token is Invalid') {
+                                         this.setState({showForm: false, content: ''});
                                          this.props.getIdeas();
                                      } else if (res.data.status === 'Token is Invalid') {
                                          localStorage.removeItem('jwt');
@@ -105,9 +106,36 @@ export class MyIdeasComponent extends Component<any, any> {
                         />
                     </div>
                 </div>
-                {
-                    JSON.stringify(this.state)
-                }
+
+                {this.props.ideas ? this.props.ideas.map((idea) => {
+                    console.log('idea', idea);
+                    return (
+                        <div key={idea.id}>
+                                <div className="select-block">
+                                    {idea.content}
+                                </div>
+                                <div className="select-block">
+                                    {idea.impact}
+                                </div>
+                                <div className="select-block">
+                                    {idea.ease}
+                                </div>
+                                <div className="select-block">
+                                    {idea.confidence}
+                                </div>
+                                <div className="select-block">
+                                    {idea.average_score}
+                                </div>
+                                <div className="select-block">
+                                    <img src="images/bin.png" alt="delete-idea" className="cursor-pointer"
+                                        onClick={() => {
+                                            this.props.deleteIdea(idea.id);
+                                        }}/>
+                                </div>
+                        </div>
+                    );
+                })
+                : undefined}
             </div>
         );
     }

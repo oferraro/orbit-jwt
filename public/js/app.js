@@ -48537,11 +48537,15 @@ var App = /** @class */ (function (_super) {
             this.state.jwt
                 ? react_1.default.createElement(MyIdeasComponent_1.MyIdeasComponent, { setJWTItem: function (jwtValue) {
                         _this.setState({ jwt: jwtValue });
+                        localStorage.setItem('jwt', jwtValue);
                     }, getIdeas: function () {
                         _this.getIdeas();
+                    }, ideas: this.state.ideas, deleteIdea: function (ideaID) {
+                        _this.deleteIdea(ideaID);
                     } })
                 : react_1.default.createElement(LoginComponent_1.LoginComponent, { setJWTItem: function (jwtValue) {
                         _this.setState({ jwt: jwtValue });
+                        localStorage.setItem('jwt', jwtValue);
                     } })));
     };
     App.prototype.getIdeas = function () {
@@ -48550,12 +48554,24 @@ var App = /** @class */ (function (_super) {
             headers: { 'x-api-key': this.state.jwt
             }
         }).then(function (res) {
-            console.log(res);
             if (res.data.status === "Token is Expired") {
                 localStorage.removeItem('jwt');
                 location.reload();
             }
-            _this.setState({ ideas: res.data.ideas });
+            if (res.data.status !== "Token is Invalid") {
+                _this.setState({ ideas: res.data });
+            }
+        });
+    };
+    App.prototype.deleteIdea = function (ideaID) {
+        var _this = this;
+        axios_1.default.delete("api/ideas/" + ideaID, {
+            headers: {
+                'x-api-key': this.state.jwt
+            }
+        }).then(function (res) {
+            _this.getIdeas();
+            console.log(res);
         });
     };
     return App;
@@ -48709,11 +48725,11 @@ var MyIdeasComponent = /** @class */ (function (_super) {
     function MyIdeasComponent(props) {
         var _this = _super.call(this, props) || this;
         _this.state = initialState;
+        _this.props.getIdeas();
         return _this;
     }
     MyIdeasComponent.prototype.render = function () {
         var _this = this;
-        var showForm = false;
         return (react_1.default.createElement("div", { className: "my-ideas-container" },
             react_1.default.createElement("div", { className: "title" }, "My ideas"),
             react_1.default.createElement("img", { src: "images/btn_addanidea.png", className: "plus-button cursor-pointer", alt: "add-button", onClick: function () {
@@ -48766,8 +48782,8 @@ var MyIdeasComponent = /** @class */ (function (_super) {
                                 headers: { 'x-api-key': jwt
                                 }
                             }).then(function (res) {
-                                if (res.status === 200 && res.data.status !== 'Token is Invalid') {
-                                    _this.setState(initialState);
+                                if (res.status === 201 && res.data.status !== 'Token is Invalid') {
+                                    _this.setState({ showForm: false, content: '' });
                                     _this.props.getIdeas();
                                 }
                                 else if (res.data.status === 'Token is Invalid') {
@@ -48781,7 +48797,20 @@ var MyIdeasComponent = /** @class */ (function (_super) {
                     react_1.default.createElement("img", { src: "images/Cancel_X.png", alt: "cancel-image", className: "cursor-pointer", onClick: function () {
                             _this.setState(initialState);
                         } }))),
-            JSON.stringify(this.state)));
+            this.props.ideas ? this.props.ideas.map(function (idea) {
+                console.log('idea', idea);
+                return (react_1.default.createElement("div", { key: idea.id },
+                    react_1.default.createElement("div", { className: "select-block" }, idea.content),
+                    react_1.default.createElement("div", { className: "select-block" }, idea.impact),
+                    react_1.default.createElement("div", { className: "select-block" }, idea.ease),
+                    react_1.default.createElement("div", { className: "select-block" }, idea.confidence),
+                    react_1.default.createElement("div", { className: "select-block" }, idea.average_score),
+                    react_1.default.createElement("div", { className: "select-block" },
+                        react_1.default.createElement("img", { src: "images/bin.png", alt: "delete-idea", className: "cursor-pointer", onClick: function () {
+                                _this.props.deleteIdea(idea.id);
+                            } }))));
+            })
+                : undefined));
     };
     return MyIdeasComponent;
 }(react_1.Component));
