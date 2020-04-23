@@ -4,21 +4,18 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Ideas</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
+        <link href="{{asset('css/app.css')}}" rel="stylesheet">
+
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-
-            <form method="post">
-                <input type="text" placeholder="email" name="email" />
-                <input type="password" name="password" />
-                <input type="submit" value="Login" />
-            </form>
-
-        </div>
+        <div id="app"></div>
     </body>
+
+    <script src="{{ asset('js/app.js') }}"></script>
+
 </html>

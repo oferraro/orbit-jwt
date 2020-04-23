@@ -2,17 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="14258c08-ab2d-4972-8063-5a2144860499" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/js/components/App.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/Global.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/LoginComponent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/MyIdeasComponent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/MyIdeasStyles.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable />
@@ -134,11 +140,13 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/components" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/js/components" />
       <recent name="$PROJECT_DIR$/resources/views" />
     </key>
   </component>
@@ -158,7 +166,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1587652719183</updated>
-      <workItem from="1587652720771" duration="13534000" />
+      <workItem from="1587652720771" duration="20864000" />
+      <workItem from="1587678197516" duration="4367000" />
     </task>
     <servers />
   </component>
@@ -174,9 +183,13 @@
       <screen x="0" y="23" width="1344" height="817" />
     </state>
     <state x="330" y="188" width="683" height="486" key="find.popup/0.23.1344.817@0.23.1344.817" timestamp="1587669376198" />
-    <state x="337" y="164" key="search.everywhere.popup" timestamp="1587654071066">
+    <state x="337" y="196" key="run.anything.popup" timestamp="1587677152003">
       <screen x="0" y="23" width="1344" height="817" />
     </state>
-    <state x="337" y="164" key="search.everywhere.popup/0.23.1344.817@0.23.1344.817" timestamp="1587654071066" />
+    <state x="337" y="196" key="run.anything.popup/0.23.1344.817@0.23.1344.817" timestamp="1587677152003" />
+    <state x="337" y="164" width="670" height="676" key="search.everywhere.popup" timestamp="1587682497193">
+      <screen x="0" y="23" width="1344" height="817" />
+    </state>
+    <state x="337" y="164" width="670" height="676" key="search.everywhere.popup/0.23.1344.817@0.23.1344.817" timestamp="1587682497193" />
   </component>
 </project>
