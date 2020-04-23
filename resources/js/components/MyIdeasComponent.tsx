@@ -107,35 +107,37 @@ export class MyIdeasComponent extends Component<any, any> {
                     </div>
                 </div>
 
+                <table>
                 {this.props.ideas ? this.props.ideas.map((idea) => {
                     console.log('idea', idea);
                     return (
-                        <div key={idea.id}>
-                                <div className="select-block">
-                                    {idea.content}
-                                </div>
-                                <div className="select-block">
-                                    {idea.impact}
-                                </div>
-                                <div className="select-block">
-                                    {idea.ease}
-                                </div>
-                                <div className="select-block">
-                                    {idea.confidence}
-                                </div>
-                                <div className="select-block">
-                                    {idea.average_score}
-                                </div>
-                                <div className="select-block">
-                                    <img src="images/bin.png" alt="delete-idea" className="cursor-pointer"
-                                        onClick={() => {
-                                            this.props.deleteIdea(idea.id);
-                                        }}/>
-                                </div>
-                        </div>
+                        <tr key={idea.id}>
+                            <td className="ideas-td">
+                                {idea.content}
+                            </td>
+                            <td className="ideas-td">
+                                {idea.impact}
+                            </td>
+                            <td className="ideas-td">
+                                {idea.ease}
+                            </td>
+                            <td className="ideas-td">
+                                {idea.confidence}
+                            </td>
+                            <td className="ideas-td">
+                                {idea.average_score.toFixed(2)}
+                            </td>
+                            <td className="ideas-td">
+                                <img src="images/bin.png" alt="delete-idea" className="cursor-pointer"
+                                    onClick={() => {
+                                        this.props.deleteIdea(idea.id);
+                                    }}/>
+                            </td>
+                        </tr>
                     );
                 })
                 : undefined}
+                </table>
             </div>
         );
     }

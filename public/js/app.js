@@ -1930,7 +1930,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".my-ideas-container .title {\n  display: inline-block;\n  vertical-align: middle;\n  margin-left: 50px;\n}\n.my-ideas-container .plus-button {\n  margin-left: 50px;\n  display: inline-block;\n  vertical-align: middle;\n}\n.my-ideas-container .select-block {\n  display: inline-block;\n  padding: 0 20px;\n}", ""]);
+exports.push([module.i, ".my-ideas-container .title {\n  display: inline-block;\n  vertical-align: middle;\n  margin-left: 50px;\n}\n.my-ideas-container .plus-button {\n  margin-left: 50px;\n  display: inline-block;\n  vertical-align: middle;\n}\n.my-ideas-container .select-block {\n  display: inline-block;\n  padding: 0 20px;\n}\n\n.ideas-td {\n  padding: 20px;\n}", ""]);
 
 // exports
 
@@ -48797,20 +48797,20 @@ var MyIdeasComponent = /** @class */ (function (_super) {
                     react_1.default.createElement("img", { src: "images/Cancel_X.png", alt: "cancel-image", className: "cursor-pointer", onClick: function () {
                             _this.setState(initialState);
                         } }))),
-            this.props.ideas ? this.props.ideas.map(function (idea) {
+            react_1.default.createElement("table", null, this.props.ideas ? this.props.ideas.map(function (idea) {
                 console.log('idea', idea);
-                return (react_1.default.createElement("div", { key: idea.id },
-                    react_1.default.createElement("div", { className: "select-block" }, idea.content),
-                    react_1.default.createElement("div", { className: "select-block" }, idea.impact),
-                    react_1.default.createElement("div", { className: "select-block" }, idea.ease),
-                    react_1.default.createElement("div", { className: "select-block" }, idea.confidence),
-                    react_1.default.createElement("div", { className: "select-block" }, idea.average_score),
-                    react_1.default.createElement("div", { className: "select-block" },
+                return (react_1.default.createElement("tr", { key: idea.id },
+                    react_1.default.createElement("td", { className: "ideas-td" }, idea.content),
+                    react_1.default.createElement("td", { className: "ideas-td" }, idea.impact),
+                    react_1.default.createElement("td", { className: "ideas-td" }, idea.ease),
+                    react_1.default.createElement("td", { className: "ideas-td" }, idea.confidence),
+                    react_1.default.createElement("td", { className: "ideas-td" }, idea.average_score.toFixed(2)),
+                    react_1.default.createElement("td", { className: "ideas-td" },
                         react_1.default.createElement("img", { src: "images/bin.png", alt: "delete-idea", className: "cursor-pointer", onClick: function () {
                                 _this.props.deleteIdea(idea.id);
                             } }))));
             })
-                : undefined));
+                : undefined)));
     };
     return MyIdeasComponent;
 }(react_1.Component));
