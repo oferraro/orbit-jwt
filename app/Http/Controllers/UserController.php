@@ -67,7 +67,7 @@ class UserController extends Controller
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-        $refresh_token = '';
+        $refresh_token = $jwt;
         return response()->json(compact('jwt', 'refresh_token'), 201);
     }
 
@@ -79,7 +79,7 @@ class UserController extends Controller
         return response()->json([], 204);
     }
 
-    public function getAuthenticatedUser()
+    public function getAuthenticatedUser(Request $request)
     {
         try {
             if (!$user = JWTAuth::parseToken()->authenticate()) {

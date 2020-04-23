@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="14258c08-ab2d-4972-8063-5a2144860499" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/JwtMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/JwtMiddleware.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/jwt.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/jwt.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +159,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1587652719183</updated>
-      <workItem from="1587652720771" duration="12441000" />
+      <workItem from="1587652720771" duration="13213000" />
     </task>
     <servers />
   </component>
@@ -169,10 +171,10 @@
       <screen x="0" y="23" width="1344" height="817" />
     </state>
     <state x="410" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.1344.817@0.23.1344.817" timestamp="1587664630735" />
-    <state x="330" y="188" width="683" height="486" key="find.popup" timestamp="1587663713203">
+    <state x="330" y="188" width="683" height="486" key="find.popup" timestamp="1587669376198">
       <screen x="0" y="23" width="1344" height="817" />
     </state>
-    <state x="330" y="188" width="683" height="486" key="find.popup/0.23.1344.817@0.23.1344.817" timestamp="1587663713203" />
+    <state x="330" y="188" width="683" height="486" key="find.popup/0.23.1344.817@0.23.1344.817" timestamp="1587669376198" />
     <state x="337" y="164" key="search.everywhere.popup" timestamp="1587654071066">
       <screen x="0" y="23" width="1344" height="817" />
     </state>

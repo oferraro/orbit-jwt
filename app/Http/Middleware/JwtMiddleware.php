@@ -18,6 +18,9 @@ class JwtMiddleware extends BaseMiddleware
      */
     public function handle($request, Closure $next)
     {
+        $token = $request->header('x-api-key'); // Transform token to requested format
+        $request->request->set('token', "$token");
+
         try {
             $user = JWTAuth::parseToken()->authenticate();
         } catch (Exception $e) {
