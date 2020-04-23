@@ -25,7 +25,7 @@ class UserController extends Controller
             'regex:/[A-Z]/',      // must contain at least one uppercase letter
             'regex:/[a-z]/',      // must contain at least one lowercase letter
             'regex:/[0-9]/',      // must contain at least one digit/number
-            'confirmed',
+            // this happens in frontend: 'confirmed',
             // Password (at least 8 characters, including 1 uppercase letter, 1 lowercase letter, and 1 number)
         ]);
 

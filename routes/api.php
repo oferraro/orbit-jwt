@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// User Signup
 Route::post('users', 'UserController@signUp')->name('users.signUp');
 // User login
 Route::post('access-tokens', 'UserController@authenticate');
