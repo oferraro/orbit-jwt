@@ -81,3 +81,16 @@ body {
 .cursor-pointer {
     cursor: pointer;
 }
+
+.general-link {
+    cursor: pointer;
+    font-size: 16px;
+    color: #00A843;
+    line-height: 18px;
+    display: inline-block;
+}
+
+.create-account-link {
+    margin-left: 50px;
+    display: inline-block;
+}

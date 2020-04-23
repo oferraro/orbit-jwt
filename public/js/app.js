@@ -1911,7 +1911,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n}\n\n.left-bar {\n  background: #00A843;\n}\n.left-bar .avatar {\n  padding-top: 37px;\n}\n.left-bar .avatar .image {\n  margin: 0 auto;\n  display: block;\n}\n.left-bar .avatar .text {\n  width: 100%;\n  text-align: center;\n  margin-top: 13px;\n  color: white;\n}\n.left-bar .user-data-container {\n  text-align: center;\n}\n\n.wrapper {\n  display: grid;\n  height: 100vh;\n  grid-template-columns: 200px 1fr;\n  grid-gap: 10px;\n  background-color: #fff;\n  color: #444;\n}\n\n.vertical-center {\n  margin: 0;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n.sign-up-form {\n  position: relative;\n}\n.sign-up-form .vertical-center {\n  margin: 0 auto;\n  width: 100%;\n  text-align: center;\n}\n.sign-up-form .vertical-center .form-title {\n  font-size: 45px;\n}\n.sign-up-form .vertical-center .submit-button-container {\n  text-align: left;\n  width: 500px;\n  margin: 0 auto;\n}\n.sign-up-form .vertical-center .submit-button-container .submit-button {\n  background-color: #00A843;\n  color: white;\n  display: inline-block;\n  padding: 10px 25px;\n  text-align: left;\n}\n\n.form-control input {\n  border: 0;\n  width: 500px;\n  border-bottom: 1px solid black;\n  background-color: white;\n  font-size: 25px;\n  margin-bottom: 20px;\n}\n\n.hidden {\n  display: none;\n}\n\n.cursor-pointer {\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n}\n\n.left-bar {\n  background: #00A843;\n}\n.left-bar .avatar {\n  padding-top: 37px;\n}\n.left-bar .avatar .image {\n  margin: 0 auto;\n  display: block;\n}\n.left-bar .avatar .text {\n  width: 100%;\n  text-align: center;\n  margin-top: 13px;\n  color: white;\n}\n.left-bar .user-data-container {\n  text-align: center;\n}\n\n.wrapper {\n  display: grid;\n  height: 100vh;\n  grid-template-columns: 200px 1fr;\n  grid-gap: 10px;\n  background-color: #fff;\n  color: #444;\n}\n\n.vertical-center {\n  margin: 0;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n.sign-up-form {\n  position: relative;\n}\n.sign-up-form .vertical-center {\n  margin: 0 auto;\n  width: 100%;\n  text-align: center;\n}\n.sign-up-form .vertical-center .form-title {\n  font-size: 45px;\n}\n.sign-up-form .vertical-center .submit-button-container {\n  text-align: left;\n  width: 500px;\n  margin: 0 auto;\n}\n.sign-up-form .vertical-center .submit-button-container .submit-button {\n  background-color: #00A843;\n  color: white;\n  display: inline-block;\n  padding: 10px 25px;\n  text-align: left;\n}\n\n.form-control input {\n  border: 0;\n  width: 500px;\n  border-bottom: 1px solid black;\n  background-color: white;\n  font-size: 25px;\n  margin-bottom: 20px;\n}\n\n.hidden {\n  display: none;\n}\n\n.cursor-pointer {\n  cursor: pointer;\n}\n\n.general-link {\n  cursor: pointer;\n  font-size: 16px;\n  color: #00A843;\n  line-height: 18px;\n  display: inline-block;\n}\n\n.create-account-link {\n  margin-left: 50px;\n  display: inline-block;\n}", ""]);
 
 // exports
 
@@ -48546,7 +48546,21 @@ var App = /** @class */ (function (_super) {
                 : react_1.default.createElement(LoginComponent_1.LoginComponent, { setJWTItem: function (jwtValue) {
                         _this.setState({ jwt: jwtValue });
                         localStorage.setItem('jwt', jwtValue);
+                    }, signUp: function (data) {
+                        _this.signUp(data);
                     } })));
+    };
+    App.prototype.signUp = function (data) {
+        var _this = this;
+        axios_1.default.post("api/users", {
+            name: data.name, email: data.email, password: data.password
+        }).then(function (res) {
+            if (res.status === 201 && res.data.token) {
+                _this.setState({ jwt: res.data.token });
+                localStorage.setItem('jwt', res.data.token);
+                location.reload();
+            }
+        });
     };
     App.prototype.getIdeas = function () {
         var _this = this;
@@ -48648,33 +48662,63 @@ var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/a
 var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var LoginComponent = /** @class */ (function (_super) {
     __extends(LoginComponent, _super);
-    function LoginComponent() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function LoginComponent(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = { show: 'signIn' };
+        return _this;
     }
     LoginComponent.prototype.render = function () {
         var _this = this;
         return (react_1.default.createElement("div", { className: "sign-up-form" },
-            react_1.default.createElement("div", { className: "vertical-center" },
+            react_1.default.createElement("div", { className: "vertical-center" }, this.state.show === 'signIn' ?
+                react_1.default.createElement(react_1.default.Fragment, null,
+                    react_1.default.createElement("div", { className: "form-title" }, "Sign In"),
+                    react_1.default.createElement("form", { method: "post" },
+                        react_1.default.createElement("div", { className: "form-control" },
+                            react_1.default.createElement("input", { type: "text", placeholder: "email", name: "email", id: "email" })),
+                        react_1.default.createElement("div", { className: "form-control" },
+                            react_1.default.createElement("input", { type: "password", name: "password", id: "password" })),
+                        react_1.default.createElement("div", { className: "submit-button-container" },
+                            react_1.default.createElement("div", { onClick: function () {
+                                    var emailElement = document.getElementById('email');
+                                    var email = (emailElement) ? emailElement.value : '';
+                                    var passwordElement = document.getElementById('password');
+                                    var password = (passwordElement) ? passwordElement.value : '';
+                                    axios_1.default.post("api/access-tokens", {
+                                        email: email, password: password
+                                    }).then(function (res) {
+                                        if (res.status === 201) {
+                                            _this.props.setJWTItem(res.data.jwt);
+                                        }
+                                    });
+                                }, className: "submit-button" }, "SIGN IN"),
+                            react_1.default.createElement("div", { className: "create-account-link" },
+                                "Don't have an account?",
+                                " ",
+                                react_1.default.createElement("div", { className: "general-link", onClick: function () {
+                                        _this.setState({ show: 'signUp' });
+                                    } }, "Create an account"))))) : react_1.default.createElement(react_1.default.Fragment, null,
                 react_1.default.createElement("div", { className: "form-title" }, "Sign Up"),
                 react_1.default.createElement("form", { method: "post" },
                     react_1.default.createElement("div", { className: "form-control" },
-                        react_1.default.createElement("input", { type: "text", placeholder: "email", name: "email", id: "email" })),
+                        react_1.default.createElement("input", { type: "text", placeholder: "name", name: "name", id: "signUpName" })),
                     react_1.default.createElement("div", { className: "form-control" },
-                        react_1.default.createElement("input", { type: "password", name: "password", id: "password" })),
+                        react_1.default.createElement("input", { type: "text", placeholder: "email", name: "email", id: "signUpEmail" })),
+                    react_1.default.createElement("div", { className: "form-control" },
+                        react_1.default.createElement("input", { type: "password", name: "password", id: "signUpPassword" })),
                     react_1.default.createElement("div", { className: "submit-button-container" },
-                        react_1.default.createElement("div", { onClick: function () {
-                                var emailElement = document.getElementById('email');
-                                var email = (emailElement) ? emailElement.value : '';
-                                var passwordElement = document.getElementById('password');
-                                var password = (passwordElement) ? passwordElement.value : '';
-                                axios_1.default.post("api/access-tokens", {
-                                    email: email, password: password
-                                }).then(function (res) {
-                                    if (res.status === 201) {
-                                        _this.props.setJWTItem(res.data.jwt);
-                                    }
-                                });
-                            }, className: "submit-button" }, "SIGN UP"))))));
+                        react_1.default.createElement("div", { className: "submit-button", onClick: function () {
+                                var nameElement = document.getElementById('signUpName');
+                                var emailElement = document.getElementById('signUpEmail');
+                                var passwordElement = document.getElementById('signUpPassword');
+                                if (nameElement && emailElement && passwordElement) {
+                                    _this.props.signUp({
+                                        name: nameElement.value,
+                                        email: emailElement.value,
+                                        password: passwordElement.value
+                                    });
+                                }
+                            } }, "SIGN IN")))))));
     };
     return LoginComponent;
 }(react_1.Component));

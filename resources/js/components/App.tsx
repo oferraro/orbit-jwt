@@ -59,8 +59,23 @@ class App extends Component<any, any> {
                         this.setState({jwt: jwtValue});
                         localStorage.setItem('jwt', jwtValue);
                     }}
+                    signUp={(data) => {
+                        this.signUp(data)
+                    }}
                 /> }
     </div>)
+    }
+
+    signUp(data){
+        axios.post(`api/users`, {
+            name: data.name, email: data.email, password: data.password
+        }).then(res => {
+            if (res.status === 201 && res.data.token) {
+                this.setState({jwt: res.data.token});
+                localStorage.setItem('jwt', res.data.token);
+                location.reload();
+            }
+        });
     }
 
     getIdeas() {
