@@ -48585,7 +48585,6 @@ var App = /** @class */ (function (_super) {
             }
         }).then(function (res) {
             _this.getIdeas();
-            console.log(res);
         });
     };
     return App;
@@ -48763,7 +48762,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 __webpack_require__(/*! ./MyIdeasStyles.scss */ "./resources/js/components/MyIdeasStyles.scss");
 var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
-var initialState = { showForm: false, content: '', impact: 0, ease: 0, confidence: 0, average: 0 };
+var emptyIdea = { content: '', impact: 0, ease: 0, confidence: 0 };
+var initialState = {
+    showForm: false, content: '', impact: 0, ease: 0, confidence: 0, average: 0,
+    editingIdea: false, ideaToEdit: emptyIdea, ideaToEditAvg: 0
+};
 var MyIdeasComponent = /** @class */ (function (_super) {
     __extends(MyIdeasComponent, _super);
     function MyIdeasComponent(props) {
@@ -48777,84 +48780,154 @@ var MyIdeasComponent = /** @class */ (function (_super) {
         return (react_1.default.createElement("div", { className: "my-ideas-container" },
             react_1.default.createElement("div", { className: "title" }, "My ideas"),
             react_1.default.createElement("img", { src: "images/btn_addanidea.png", className: "plus-button cursor-pointer", alt: "add-button", onClick: function () {
-                    _this.setState({ showForm: true });
+                    _this.setState({ showForm: true, editingIdea: false });
                 } }),
             react_1.default.createElement("hr", null),
-            react_1.default.createElement("div", { className: (this.state.showForm ? undefined : 'hidden') },
-                react_1.default.createElement("input", { type: "text", value: this.state.content, onChange: function (event) {
-                        _this.setState({ content: event.target.value });
-                    } }),
-                react_1.default.createElement("div", { className: "select-block" },
-                    react_1.default.createElement("div", null, "Impact"),
-                    react_1.default.createElement("select", { onChange: function (event) {
-                            var impact = event.target.value;
-                            var average = (parseInt(impact) + parseInt(_this.state.ease) + parseInt(_this.state.confidence)) / 3;
-                            _this.setState({ impact: impact, average: average.toFixed(2) });
-                        } }, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(function (k, v) {
-                        return (react_1.default.createElement("option", { key: v, value: v }, v));
-                    }))),
-                react_1.default.createElement("div", { className: "select-block" },
-                    react_1.default.createElement("div", null, "Ease"),
-                    react_1.default.createElement("select", { onChange: function (event) {
-                            var ease = event.target.value;
-                            var average = (parseInt(_this.state.impact) + parseInt(ease) + parseInt(_this.state.confidence)) / 3;
-                            _this.setState({ ease: ease, average: average.toFixed(2) });
-                        } }, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(function (k, v) {
-                        return (react_1.default.createElement("option", { key: v, value: v }, v));
-                    }))),
-                react_1.default.createElement("div", { className: "select-block" },
-                    react_1.default.createElement("div", null, "Confidence:"),
-                    react_1.default.createElement("select", { onChange: function (event) {
-                            var confidence = event.target.value;
-                            var average = (parseInt(_this.state.impact) + parseInt(_this.state.ease) + parseInt(confidence)) / 3;
-                            _this.setState({ confidence: confidence, average: average.toFixed(2) });
-                        } }, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(function (k, v) {
-                        return (react_1.default.createElement("option", { key: v, value: v }, v));
-                    }))),
-                react_1.default.createElement("div", { className: "select-block" },
-                    react_1.default.createElement("div", null, "Avg."),
-                    this.state.average),
-                react_1.default.createElement("div", { className: "select-block" },
-                    react_1.default.createElement("img", { src: "images/Confirm_V.png", alt: "confirm-image", className: "cursor-pointer", onClick: function () {
-                            var jwt = localStorage.getItem('jwt');
-                            axios_1.default.post("api/ideas", {
-                                content: _this.state.content,
-                                impact: _this.state.impact,
-                                ease: _this.state.ease,
-                                confidence: _this.state.confidence
-                            }, {
-                                headers: { 'x-api-key': jwt
-                                }
-                            }).then(function (res) {
-                                if (res.status === 201 && res.data.status !== 'Token is Invalid') {
-                                    _this.setState({ showForm: false, content: '' });
-                                    _this.props.getIdeas();
-                                }
-                                else if (res.data.status === 'Token is Invalid') {
-                                    localStorage.removeItem('jwt');
-                                    location.reload();
-                                    _this.props.setJWTItem(false);
-                                }
-                            });
-                        } })),
-                react_1.default.createElement("div", { className: "select-block" },
-                    react_1.default.createElement("img", { src: "images/Cancel_X.png", alt: "cancel-image", className: "cursor-pointer", onClick: function () {
-                            _this.setState(initialState);
-                        } }))),
-            react_1.default.createElement("table", null, this.props.ideas ? this.props.ideas.map(function (idea) {
-                console.log('idea', idea);
-                return (react_1.default.createElement("tr", { key: idea.id },
-                    react_1.default.createElement("td", { className: "ideas-td" }, idea.content),
-                    react_1.default.createElement("td", { className: "ideas-td" }, idea.impact),
-                    react_1.default.createElement("td", { className: "ideas-td" }, idea.ease),
-                    react_1.default.createElement("td", { className: "ideas-td" }, idea.confidence),
-                    react_1.default.createElement("td", { className: "ideas-td" }, idea.average_score.toFixed(2)),
-                    react_1.default.createElement("td", { className: "ideas-td" },
-                        react_1.default.createElement("img", { src: "images/bin.png", alt: "delete-idea", className: "cursor-pointer", onClick: function () {
-                                _this.props.deleteIdea(idea.id);
-                            } }))));
-            })
-                : undefined)));
+            this.state.editingIdea
+                ? react_1.default.createElement("div", null,
+                    react_1.default.createElement("input", { type: "text", value: this.state.ideaToEdit.content, onChange: function (event) {
+                            var editingIdea = _this.state.ideaToEdit;
+                            editingIdea.content = event.target.value;
+                            _this.setState({ ideaToEdit: editingIdea });
+                        } }),
+                    react_1.default.createElement("div", { className: "select-block" },
+                        react_1.default.createElement("div", null, "Impact"),
+                        react_1.default.createElement("select", { defaultValue: this.state.ideaToEdit.impact, onChange: function (event) {
+                                var editingIdea = _this.state.ideaToEdit;
+                                editingIdea.impact = event.target.value;
+                                var ideaToEditAvg = _this.getAverage(_this.state.ideaToEdit);
+                                _this.setState({ ideaToEdit: editingIdea, ideaToEditAvg: ideaToEditAvg });
+                            } }, this.getSelectOptions())),
+                    react_1.default.createElement("div", { className: "select-block" },
+                        react_1.default.createElement("div", null, "Ease"),
+                        react_1.default.createElement("select", { defaultValue: this.state.ideaToEdit.ease, onChange: function (event) {
+                                var editingIdea = _this.state.ideaToEdit;
+                                editingIdea.ease = event.target.value;
+                                var ideaToEditAvg = _this.getAverage(_this.state.ideaToEdit);
+                                _this.setState({ ideaToEdit: editingIdea, ideaToEditAvg: ideaToEditAvg });
+                            } }, this.getSelectOptions())),
+                    react_1.default.createElement("div", { className: "select-block" },
+                        react_1.default.createElement("div", null, "Confidence"),
+                        react_1.default.createElement("select", { defaultValue: this.state.ideaToEdit.confidence, onChange: function (event) {
+                                var editingIdea = _this.state.ideaToEdit;
+                                editingIdea.confidence = event.target.value;
+                                var ideaToEditAvg = _this.getAverage(_this.state.ideaToEdit);
+                                _this.setState({ ideaToEdit: editingIdea, ideaToEditAvg: ideaToEditAvg });
+                            } }, this.getSelectOptions())),
+                    react_1.default.createElement("div", { className: "select-block" },
+                        react_1.default.createElement("div", null, "Avg."),
+                        this.state.ideaToEditAvg),
+                    react_1.default.createElement("div", { className: "select-block" },
+                        react_1.default.createElement("img", { src: "images/Confirm_V.png", alt: "confirm-image", className: "cursor-pointer", onClick: function () {
+                                var jwt = localStorage.getItem('jwt');
+                                axios_1.default.put("api/ideas/" + _this.state.ideaToEdit.id, {
+                                    content: _this.state.ideaToEdit.content,
+                                    impact: _this.state.ideaToEdit.impact,
+                                    ease: _this.state.ideaToEdit.ease,
+                                    confidence: _this.state.ideaToEdit.confidence
+                                }, {
+                                    headers: { 'x-api-key': jwt
+                                    }
+                                }).then(function (res) {
+                                    if (res.status === 200 && res.data.status !== 'Token is Invalid') {
+                                        _this.setState({ showForm: false, content: '' });
+                                        _this.props.getIdeas();
+                                    }
+                                    else if (res.data.status === 'Token is Invalid') {
+                                        localStorage.removeItem('jwt');
+                                        location.reload();
+                                        _this.props.setJWTItem(false);
+                                    }
+                                });
+                            } })))
+                : react_1.default.createElement(react_1.default.Fragment, null,
+                    react_1.default.createElement("div", { className: (this.state.showForm ? undefined : 'hidden') },
+                        react_1.default.createElement("input", { type: "text", value: this.state.content, onChange: function (event) {
+                                _this.setState({ content: event.target.value });
+                            } }),
+                        react_1.default.createElement("div", { className: "select-block" },
+                            react_1.default.createElement("div", null, "Impact"),
+                            react_1.default.createElement("select", { onChange: function (event) {
+                                    var impact = event.target.value;
+                                    var average = (parseInt(impact) + parseInt(_this.state.ease) + parseInt(_this.state.confidence)) / 3;
+                                    _this.setState({ impact: impact, average: average.toFixed(2) });
+                                } }, this.getSelectOptions())),
+                        react_1.default.createElement("div", { className: "select-block" },
+                            react_1.default.createElement("div", null, "Ease"),
+                            react_1.default.createElement("select", { onChange: function (event) {
+                                    var ease = event.target.value;
+                                    var average = (parseInt(_this.state.impact) + parseInt(ease) + parseInt(_this.state.confidence)) / 3;
+                                    _this.setState({ ease: ease, average: average.toFixed(2) });
+                                } }, this.getSelectOptions())),
+                        react_1.default.createElement("div", { className: "select-block" },
+                            react_1.default.createElement("div", null, "Confidence:"),
+                            react_1.default.createElement("select", { onChange: function (event) {
+                                    var confidence = event.target.value;
+                                    var average = (parseInt(_this.state.impact) + parseInt(_this.state.ease) + parseInt(confidence)) / 3;
+                                    _this.setState({ confidence: confidence, average: average.toFixed(2) });
+                                } }, this.getSelectOptions())),
+                        react_1.default.createElement("div", { className: "select-block" },
+                            react_1.default.createElement("div", null, "Avg."),
+                            this.state.average),
+                        react_1.default.createElement("div", { className: "select-block" },
+                            react_1.default.createElement("img", { src: "images/Confirm_V.png", alt: "confirm-image", className: "cursor-pointer", onClick: function () {
+                                    var jwt = localStorage.getItem('jwt');
+                                    axios_1.default.post("api/ideas", {
+                                        content: _this.state.content,
+                                        impact: _this.state.impact,
+                                        ease: _this.state.ease,
+                                        confidence: _this.state.confidence
+                                    }, {
+                                        headers: { 'x-api-key': jwt
+                                        }
+                                    }).then(function (res) {
+                                        if (res.status === 201 && res.data.status !== 'Token is Invalid') {
+                                            _this.setState({ showForm: false, content: '' });
+                                            _this.props.getIdeas();
+                                        }
+                                        else if (res.data.status === 'Token is Invalid') {
+                                            localStorage.removeItem('jwt');
+                                            location.reload();
+                                            _this.props.setJWTItem(false);
+                                        }
+                                    });
+                                } })),
+                        react_1.default.createElement("div", { className: "select-block" },
+                            react_1.default.createElement("img", { src: "images/Cancel_X.png", alt: "cancel-image", className: "cursor-pointer", onClick: function () {
+                                    _this.setState(initialState);
+                                } })))),
+            react_1.default.createElement("table", null,
+                react_1.default.createElement("tbody", null, this.props.ideas ? this.props.ideas.map(function (idea) {
+                    return (react_1.default.createElement("tr", { key: idea.id },
+                        react_1.default.createElement("td", { className: "ideas-td" }, idea.content),
+                        react_1.default.createElement("td", { className: "ideas-td" }, idea.impact),
+                        react_1.default.createElement("td", { className: "ideas-td" }, idea.ease),
+                        react_1.default.createElement("td", { className: "ideas-td" }, idea.confidence),
+                        react_1.default.createElement("td", { className: "ideas-td" }, idea.average_score.toFixed(2)),
+                        react_1.default.createElement("td", { className: "ideas-td" },
+                            react_1.default.createElement("img", { src: "images/pen.png", alt: "delete-idea", className: "cursor-pointer", onClick: function () {
+                                    var ideaToEditAvg = _this.getAverage(idea);
+                                    _this.setState({ editingIdea: true, ideaToEdit: idea, ideaToEditAvg: ideaToEditAvg });
+                                } }),
+                            " ",
+                            react_1.default.createElement("img", { src: "images/bin.png", alt: "delete-idea", className: "cursor-pointer", onClick: function () {
+                                    _this.props.deleteIdea(idea.id);
+                                } }))));
+                })
+                    : undefined))));
+    };
+    MyIdeasComponent.prototype.getSelectOptions = function () {
+        return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(function (k, v) {
+            return (react_1.default.createElement("option", { key: v, value: v }, v));
+        });
+    };
+    MyIdeasComponent.prototype.getAverage = function (idea) {
+        var average = 0;
+        if (idea) {
+            return ((parseInt(idea.impact) + parseInt(idea.ease) + parseInt(idea.confidence)) / 3)
+                .toFixed(2);
+        }
+        return average;
     };
     return MyIdeasComponent;
 }(react_1.Component));

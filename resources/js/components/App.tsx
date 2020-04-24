@@ -99,7 +99,6 @@ class App extends Component<any, any> {
             }
         }).then(res => {
             this.getIdeas();
-            console.log(res);
         });
     }
 
